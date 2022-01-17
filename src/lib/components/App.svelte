@@ -12,8 +12,6 @@
   export let width: number;
   export let height: number;
   export let depth: number;
-
-  export let castRay: (event: MouseEvent) => void;
 </script>
 
 <PerspectiveCamera position={[1, 1, 3]} />
@@ -24,5 +22,5 @@
   position={[-2, 3, 2]}
   shadow={{ mapSize: [2048, 2048] }}
 />
-<SpinnyCube {width} {height} {depth} bind:castRay />
+<SpinnyCube {width} {height} {depth} />
 <GridPlane {height} />

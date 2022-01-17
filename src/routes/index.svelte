@@ -8,11 +8,9 @@
   let width = 1;
   let height = 1;
   let depth = 1;
-
-  let castRay: (event: MouseEvent) => void;
 </script>
 
-<div on:click={castRay}>
+<div>
   <Canvas
     antialias
     background={new Color('grey')}
@@ -20,7 +18,7 @@
     fog={new FogExp2('papayawhip', 0.08)}
   >
     <ThreeProvider>
-      <App {width} {height} {depth} bind:castRay />
+      <App {width} {height} {depth} />
     </ThreeProvider>
     <Controls bind:width bind:depth bind:height />
   </Canvas>

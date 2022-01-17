@@ -1,14 +1,9 @@
 <script lang="ts">
-  import {
-    BoxGeometry,
-    MeshPhongMaterial,
-    Object3D,
-    Raycaster,
-    Vector2,
-  } from 'three';
+  import { BoxGeometry, MeshPhongMaterial, Object3D } from 'three';
   import { Mesh, onFrame, Position } from 'svelte-cubed';
   import getThree from '../cubedUtils/getThree';
   import GetChild from '$lib/cubedUtils/GetChild.svelte';
+  import { onMount } from 'svelte';
 
   export let width: number;
   export let height: number;
@@ -24,24 +19,13 @@
   });
 
   const threeContext = getThree();
-  const rayCaster = new Raycaster();
-  const clickPoint = new Vector2(); // Screen-space coords, range [-1, 1]
   let mesh: Object3D;
 
-  export const castRay = (event: MouseEvent) => {
-    // https://stackoverflow.com/questions/12800150/catch-the-click-event-on-a-specific-mesh-in-the-renderer
-    const { camera, canvas } = threeContext;
-    clickPoint.x = (event.clientX / canvas.clientWidth) * 2 - 1;
-    clickPoint.y = -(event.clientY / canvas.clientHeight) * 2 + 1;
-
-    rayCaster.setFromCamera(clickPoint, camera);
-
-    const intersections = rayCaster.intersectObject(mesh, true);
-
-    if (intersections.length > 0) {
+  onMount(() => {
+    threeContext.onObjectClick(mesh, (e) => {
       selected = !selected;
-    }
-  };
+    });
+  });
 </script>
 
 <GetChild bind:child={mesh}>
