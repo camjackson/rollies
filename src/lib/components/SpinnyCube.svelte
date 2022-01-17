@@ -1,9 +1,8 @@
 <script lang="ts">
   import { BoxGeometry, MeshPhongMaterial, Object3D } from 'three';
   import { Mesh, onFrame, Position } from 'svelte-cubed';
-  import getThree from '../cubedUtils/getThree';
-  import GetChild from '$lib/cubedUtils/GetChild.svelte';
-  import { onMount } from 'svelte';
+  import type { ObjectClickEvent } from '../cubedUtils/getThree';
+  import OnClick from '$lib/cubedUtils/OnClick.svelte';
 
   export let width: number;
   export let height: number;
@@ -18,17 +17,12 @@
     spin += 0.002;
   });
 
-  const threeContext = getThree();
-  let mesh: Object3D;
-
-  onMount(() => {
-    threeContext.onObjectClick(mesh, (e) => {
-      selected = !selected;
-    });
-  });
+  const onClick = (e: ObjectClickEvent) => {
+    selected = !selected;
+  };
 </script>
 
-<GetChild bind:child={mesh}>
+<OnClick {onClick}>
   <Mesh
     {position}
     rotation={[0, spin, 0]}
@@ -37,4 +31,4 @@
     material={new MeshPhongMaterial({ color })}
     castShadow
   />
-</GetChild>
+</OnClick>
