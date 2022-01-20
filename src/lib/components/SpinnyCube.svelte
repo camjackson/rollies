@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { BoxGeometry, MeshPhongMaterial, Object3D } from 'three';
+  import { BoxGeometry, MeshPhongMaterial } from 'three';
   import { Mesh, onFrame, Position } from 'svelte-cubed';
-  import type { ObjectClickEvent } from '../cubedUtils/getThree';
+  import type { ObjectClickEvent } from '$lib/cubedUtils/getThree';
   import OnClick from '$lib/cubedUtils/OnClick.svelte';
 
   export let width: number;
@@ -18,6 +18,7 @@
   });
 
   const onClick = (e: ObjectClickEvent) => {
+    e.stopPropagation();
     selected = !selected;
   };
 </script>

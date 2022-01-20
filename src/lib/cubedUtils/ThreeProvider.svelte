@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
-  import { Canvas, Primitive } from 'svelte-cubed';
+  import { Primitive } from 'svelte-cubed';
   import { Camera, Object3D, Raycaster, Scene, Vector2 } from 'three';
   import { ObjectClickEvent, setThree, ThreeContext } from './getThree';
 
@@ -57,10 +57,15 @@
       Array.from(clickHandlers.keys()),
     );
 
-    // TODO: Allow stopping propagation?
+    let stopped = false;
+    const stopProp = e.stopPropagation.bind(e);
+    e.stopPropagation = () => {
+      stopped = true;
+      stopProp();
+    };
     intersections.forEach((intersection) => {
-      const event: ObjectClickEvent = { ...e, ...intersection };
-      clickHandlers.get(intersection.object)(event);
+      if (stopped) return;
+      clickHandlers.get(intersection.object)({ ...e, ...intersection });
     });
   };
 
