@@ -41,26 +41,26 @@
     }
   };
 
-  const clickHandlers: Record<string, (e: ObjectClickEvent) => void> = {};
+  const clickHandlers = new Map<Object3D, (e: ObjectClickEvent) => void>();
   const rayCaster = new Raycaster();
   const clickPoint = new Vector2(); // Screen-space coords, range [-1, 1]
 
   const onClickCanvas = (e: MouseEvent) => {
     // https://stackoverflow.com/questions/12800150/catch-the-click-event-on-a-specific-mesh-in-the-renderer
-    const { canvas, scene, camera } = threeContext;
+    const { canvas, camera } = threeContext;
     clickPoint.x = (e.clientX / canvas.clientWidth) * 2 - 1;
     clickPoint.y = -(e.clientY / canvas.clientHeight) * 2 + 1;
 
     rayCaster.setFromCamera(clickPoint, camera);
 
-    const intersections = rayCaster.intersectObject(scene, true);
+    const intersections = rayCaster.intersectObjects(
+      Array.from(clickHandlers.keys()),
+    );
 
+    // TODO: Allow stopping propagation?
     intersections.forEach((intersection) => {
-      const handler = clickHandlers[intersection.object.id];
-      if (handler) {
-        const event: ObjectClickEvent = {};
-        handler(event);
-      }
+      const event: ObjectClickEvent = { ...e, ...intersection };
+      clickHandlers.get(intersection.object)(event);
     });
   };
 
@@ -68,11 +68,11 @@
     object: Object3D,
     onClick: (e: ObjectClickEvent) => void,
   ) => {
-    clickHandlers[object.id] = onClick;
+    clickHandlers.set(object, onClick);
   };
 
   threeContext.removeOnObjectClick = (object: Object3D) => {
-    delete clickHandlers[object.id];
+    clickHandlers.delete(object);
   };
 
   onMount(() => {
@@ -85,7 +85,7 @@
 
   onDestroy(() => {
     threeContext.canvas.removeEventListener('click', onClickCanvas);
-    for (const key in clickHandlers) delete clickHandlers[key];
+    clickHandlers.clear();
   });
 </script>
 

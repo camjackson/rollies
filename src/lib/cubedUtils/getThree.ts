@@ -1,8 +1,7 @@
 import { getContext, setContext } from 'svelte';
-import type { Camera, Object3D, Scene } from 'three';
+import type { Camera, Intersection, Object3D, Scene } from 'three';
 
-export type ObjectClickEvent = {
-};
+export type ObjectClickEvent = MouseEvent & Intersection;
 
 export type ThreeContext = {
   canvas: HTMLCanvasElement;
