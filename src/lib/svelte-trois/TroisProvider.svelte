@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
   import { Primitive } from 'svelte-cubed';
   import { Object3D } from 'three';
