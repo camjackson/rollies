@@ -18,16 +18,17 @@ export class TroisCaster {
     this.camera = camera;
   }
 
-  public attach(): void {
+  public attach(): () => void {
     this.canvas.addEventListener('click', this.onClickCanvas);
     this.canvas.addEventListener('mousemove', this.onMouseMoveCanvas);
-  }
 
-  public detach(): void {
-    this.canvas.removeEventListener('click', this.onClickCanvas);
-    this.canvas.removeEventListener('mousemove', this.onMouseMoveCanvas);
-    clickHandlers.clear();
-    mouseMoveHandlers.clear();
+    return () => {
+      this.canvas.removeEventListener('click', this.onClickCanvas);
+      this.canvas.removeEventListener('mousemove', this.onMouseMoveCanvas);
+
+      clickHandlers.clear();
+      mouseMoveHandlers.clear();
+    };
   }
 
   private onClickCanvas = (e: MouseEvent) =>

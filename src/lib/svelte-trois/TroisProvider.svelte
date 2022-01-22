@@ -37,11 +37,7 @@
     troisContext.camera = findCamera(troisContext.scene);
 
     caster = new TroisCaster(troisContext.canvas, troisContext.camera);
-    caster.attach();
-  });
-
-  onDestroy(() => {
-    caster.detach();
+    return caster.attach();
   });
 </script>
 
