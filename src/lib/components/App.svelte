@@ -5,13 +5,24 @@
     OrbitControls,
     PerspectiveCamera,
   } from 'svelte-cubed';
+  import type { Position } from 'svelte-cubed/types/common';
+  import { v3ToPosition } from '$lib/cubedUtils';
+  import type { ObjectMouseEvent } from '$lib/cubedUtils/getThree';
 
   import GridPlane from './GridPlane.svelte';
+  import MouseSphere from './MouseSphere.svelte';
   import SpinnyCube from './SpinnyCube.svelte';
 
   export let width: number;
   export let height: number;
   export let depth: number;
+
+  let mouse3dPosition: Position = [0, 0, 0];
+
+  const onMouseMove = (e: ObjectMouseEvent) => {
+    e.stopPropagation();
+    mouse3dPosition = v3ToPosition(e.intersection.point);
+  };
 </script>
 
 <PerspectiveCamera position={[1, 1, 3]} />
@@ -22,5 +33,6 @@
   position={[-2, 3, 2]}
   shadow={{ mapSize: [2048, 2048] }}
 />
-<SpinnyCube {width} {height} {depth} />
-<GridPlane {height} />
+<SpinnyCube {width} {height} {depth} {onMouseMove} />
+<GridPlane {height} {onMouseMove} />
+<MouseSphere position={mouse3dPosition} />

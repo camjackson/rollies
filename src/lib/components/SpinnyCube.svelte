@@ -1,12 +1,16 @@
 <script lang="ts">
   import { BoxGeometry, MeshPhongMaterial } from 'three';
   import { Mesh, onFrame, Position } from 'svelte-cubed';
-  import type { ObjectClickEvent } from '$lib/cubedUtils/getThree';
-  import OnClick from '$lib/cubedUtils/OnClick.svelte';
+  import type {
+    ObjectMouseEvent,
+    ObjectMouseEventHandler,
+  } from '$lib/cubedUtils/getThree';
+  import MouseEvents from '$lib/cubedUtils/MouseEvents.svelte';
 
   export let width: number;
   export let height: number;
   export let depth: number;
+  export let onMouseMove: ObjectMouseEventHandler;
 
   let selected = false;
   $: color = selected ? '#5cdb93' : '#77a8f7';
@@ -17,13 +21,13 @@
     spin += 0.002;
   });
 
-  const onClick = (e: ObjectClickEvent) => {
+  const onClick = (e: ObjectMouseEvent) => {
     e.stopPropagation();
     selected = !selected;
   };
 </script>
 
-<OnClick {onClick}>
+<MouseEvents {onClick} {onMouseMove}>
   <Mesh
     {position}
     rotation={[0, spin, 0]}
@@ -32,4 +36,4 @@
     material={new MeshPhongMaterial({ color })}
     castShadow
   />
-</OnClick>
+</MouseEvents>

@@ -1,18 +1,26 @@
 import { getContext, setContext } from 'svelte';
 import type { Camera, Intersection, Object3D, Scene } from 'three';
 
-export type ObjectClickEvent = MouseEvent & Intersection;
+export type ObjectMouseEvent = {
+  domEvent: MouseEvent;
+  intersection: Intersection;
+  stopPropagation: () => void;
+};
+export type ObjectMouseEventHandler = (e: ObjectMouseEvent) => void;
 
 export type ThreeContext = {
   canvas: HTMLCanvasElement;
   scene: Scene;
   camera: Camera;
 
-  onObjectClick: (
+  onObjectClick: (object: Object3D, onClick: ObjectMouseEventHandler) => void;
+  onObjectMouseMove: (
     object: Object3D,
-    onClick: (e: ObjectClickEvent) => void,
+    onMouseMove: ObjectMouseEventHandler,
   ) => void;
+
   removeOnObjectClick: (object: Object3D) => void;
+  removeOnObjectMouseMove: (object: Object3D) => void;
 };
 
 const key = {};
