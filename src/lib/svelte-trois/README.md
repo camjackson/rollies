@@ -54,6 +54,8 @@ Retrives the context object provided by the above provider. The object contains:
 - `scene: THREE.Scene`: The three.js scene created by `svelte-cubed`
 - `camera: THREE.Camera`: The three.js camera created by `svelte-cubed`
 
+All are set once the `TroisProvider` has mounted, and will be `undefined` before then.
+
 ### `v3ToPosition(v3: THREE.Vector3): SvelteCubed.Position`
 
 Simple helper function for converting between vector representations.
@@ -106,7 +108,7 @@ should read the note about extra `Object3D`s.
 ### `<GetChild>`
 
 A component that exposes a svelte binding to its `Object3D` child. The binding
-is set when the component mounts, and wil be `undefined` before then.
+is set when the component mounts, and will be `undefined` before then.
 
 Note that `svelte-cubed` currently does not expose object references or allow you
 to traverse the three.js scene by default. In order to do so, this component creates
@@ -141,7 +143,7 @@ Usage example:
 ### `<GetChildren>`
 
 A component that exposes a svelte binding to an array of its `Object3D` children.
-The binding is set when the component mounts, and wil be `undefined` before then.
+The binding is set when the component mounts, and will be `undefined` before then.
 
 The [note above](#getchild) regarding extra `Object3D`s also applies to this component.
 
