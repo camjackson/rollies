@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Color, FogExp2 } from 'three';
   import { Canvas } from 'svelte-cubed';
-  import ThreeProvider from '$lib/cubedUtils/ThreeProvider.svelte';
+  import { TroisProvider } from '$lib/svelte-trois';
+
   import App from '$lib/components/App.svelte';
   import Controls from '$lib/components/Controls.svelte';
 
@@ -17,9 +18,9 @@
     shadows
     fog={new FogExp2('papayawhip', 0.08)}
   >
-    <ThreeProvider>
+    <TroisProvider>
       <App {width} {height} {depth} />
-    </ThreeProvider>
+    </TroisProvider>
     <Controls bind:width bind:depth bind:height />
   </Canvas>
 </div>

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { Object3D } from 'three';
-  import getThree, { ObjectMouseEventHandler } from './getThree';
+  import { getTroisInternalContext, ObjectMouseEventHandler } from './context';
   import GetChild from './GetChild.svelte';
 
   export let onClick: ObjectMouseEventHandler | undefined = undefined;
   export let onMouseMove: ObjectMouseEventHandler | undefined = undefined;
 
-  const three = getThree();
+  const three = getTroisInternalContext();
   let child: Object3D;
 
   onMount(() => {

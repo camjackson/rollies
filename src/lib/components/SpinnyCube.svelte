@@ -1,11 +1,11 @@
 <script lang="ts">
   import { BoxGeometry, MeshPhongMaterial } from 'three';
   import { Mesh, onFrame, Position } from 'svelte-cubed';
-  import type {
+  import {
+    MouseEvents,
     ObjectMouseEvent,
     ObjectMouseEventHandler,
-  } from '$lib/cubedUtils/getThree';
-  import MouseEvents from '$lib/cubedUtils/MouseEvents.svelte';
+  } from '$lib/svelte-trois';
 
   export let width: number;
   export let height: number;

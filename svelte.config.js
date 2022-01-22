@@ -12,6 +12,18 @@ const config = {
 
     // hydrate the <div id="svelte"> element in src/app.html
     target: '#svelte',
+
+    // Publish src/lib/svelte-trois as a library
+    package: {
+      files: (path) => {
+        // Include these files in the package
+        return path === 'index.ts' || path.startsWith('svelte-trois');
+      },
+      exports: (path) => {
+        // But only this file is directly exported
+        return path === 'index.ts';
+      },
+    },
   },
 };
 

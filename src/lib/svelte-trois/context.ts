@@ -8,11 +8,13 @@ export type ObjectMouseEvent = {
 };
 export type ObjectMouseEventHandler = (e: ObjectMouseEvent) => void;
 
-export type ThreeContext = {
+export type TroisContext = {
   canvas: HTMLCanvasElement;
   scene: Scene;
   camera: Camera;
+};
 
+export type TroisInternalContext = {
   onObjectClick: (object: Object3D, onClick: ObjectMouseEventHandler) => void;
   onObjectMouseMove: (
     object: Object3D,
@@ -23,14 +25,16 @@ export type ThreeContext = {
   removeOnObjectMouseMove: (object: Object3D) => void;
 };
 
-const key = {};
+const troisContextKey = {};
+const troisInternalContextKey = {};
 
-export const setThree = (three: ThreeContext): void => {
-  setContext(key, three);
-};
+export const getTroisContext = (): TroisContext => getContext(troisContextKey);
+export const getTroisInternalContext = (): TroisInternalContext =>
+  getContext(troisInternalContextKey);
 
-const getThree = (): ThreeContext => {
-  return getContext(key);
-};
+export const setTroisContext = (troiContext: TroisContext): void =>
+  setContext(troisContextKey, troiContext);
 
-export default getThree;
+export const setTroisInternalContext = (
+  troisInternalContext: TroisInternalContext,
+): void => setContext(troisInternalContextKey, troisInternalContext);

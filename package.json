@@ -1,12 +1,12 @@
 {
-  "name": "rollies",
+  "name": "svelte-trois",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "3D dice rolling with svelte-cubed",
+  "description": "Things to make svelte-cubed better",
   "scripts": {
     "dev": "svelte-kit dev --open",
     "build": "svelte-kit build",
-    "package": "svelte-kit package",
+    "package": "svelte-kit package && cp ./src/lib/svelte-trois/README.md package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -27,6 +27,7 @@
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.9.4",
+    "svelte2tsx": "^0.4.14",
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },

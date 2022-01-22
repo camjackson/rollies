@@ -1,8 +1,7 @@
 <script lang="ts">
   import { Group, Mesh, Primitive } from 'svelte-cubed';
   import { GridHelper, MeshPhongMaterial, PlaneGeometry } from 'three';
-  import MouseEvents from '$lib/cubedUtils/MouseEvents.svelte';
-  import type { ObjectMouseEventHandler } from '$lib/cubedUtils/getThree';
+  import { MouseEvents, ObjectMouseEventHandler } from '$lib/svelte-trois';
 
   export let height: number;
   export let onMouseMove: ObjectMouseEventHandler;

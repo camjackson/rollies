@@ -6,8 +6,7 @@
     PerspectiveCamera,
   } from 'svelte-cubed';
   import type { Position } from 'svelte-cubed/types/common';
-  import { v3ToPosition } from '$lib/cubedUtils';
-  import type { ObjectMouseEvent } from '$lib/cubedUtils/getThree';
+  import { v3ToPosition, ObjectMouseEvent } from '$lib/svelte-trois';
 
   import GridPlane from './GridPlane.svelte';
   import MouseSphere from './MouseSphere.svelte';
